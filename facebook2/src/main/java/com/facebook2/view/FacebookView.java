@@ -3,6 +3,7 @@ package com.facebook2.view;
 import java.util.Scanner;
 
 import com.facebook2.controller.FacebookController;
+import com.facebook2.controller.FacebookControllerInterface;
 
 public class FacebookView {
 
@@ -21,7 +22,7 @@ public class FacebookView {
 		System.out.println("enter your choice");
 		int c=sc.nextInt();
 		
-		FacebookController fc=new FacebookController();
+		FacebookControllerInterface fc=new FacebookController();
 		
 		switch(c) {
 		case 1 : fc.createProfileController();

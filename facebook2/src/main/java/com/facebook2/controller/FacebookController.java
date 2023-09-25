@@ -2,8 +2,10 @@ package com.facebook2.controller;
 
 import java.util.Scanner;
 
-public class FacebookController {
+import com.facebook2.entity.FacebookUser;
 
+public class FacebookController implements FacebookControllerInterface{
+	
 	public void createProfileController() {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter your name ");
@@ -17,6 +19,16 @@ public class FacebookController {
 		
 		System.out.println("Enter your Address ");
 		String address=sc.next();
+		
+		//above data controller have to pass to service so how it should pass?
+		//via entity class object
+		
+		FacebookUser fuser=new FacebookUser();
+		fuser.setName(name);
+		fuser.setPassword(password);
+		fuser.setEmail(email);
+		fuser.setAddress(address);
+		
 		
 		System.out.println("your name is "+name);
 		System.out.println("Your password is "+password);
