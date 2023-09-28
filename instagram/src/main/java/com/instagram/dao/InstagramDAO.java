@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.instagram.entity.InstagramUser;
+import com.instagram.exceptions.EmailNotFoundException;
 
 public class InstagramDAO implements InstagramDAOInterface {
 
@@ -62,15 +66,62 @@ public class InstagramDAO implements InstagramDAOInterface {
 			iu1.setEmail(i.getString(3));
 			iu1.setAddress(i.getString(4));
 		}
+		else {
+			throw new EmailNotFoundException(iu.getEmail() +"does not exist in database ");
+		}
 		
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+		catch(SQLException | ClassNotFoundException | EmailNotFoundException e) {
+			System.out.println(e);
 		}
 		return iu1;
 	}
 
+	@Override
+	public List<InstagramUser> viewAllProfileDAO() {
+		List<InstagramUser> ll=new ArrayList<InstagramUser>();//generic collection
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
+			PreparedStatement ps=con.prepareStatement("select * from instagramuser");
+			ResultSet res=ps.executeQuery();
+			
+			while(res.next()) {
+				String n=res.getString(1); //fetching data of first column
+				String p=res.getString(2);
+				String e=res.getString(3);
+				String a=res.getString(4);
+				
+				InstagramUser i=new InstagramUser(); //creating object of InstagramUser and setting all the value which came from database
+				i.setName(n);
+				i.setPassword(p);
+				i.setEmail(e);
+				i.setAddress(a);
+				
+				ll.add(i);//object of instagram will get inside bag i.e. ArrayList
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ll;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,10 +1,14 @@
 package com.instagram.controller;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import com.instagram.entity.InstagramUser;
 import com.instagram.service.InstagramService;
 import com.instagram.service.InstagramServiceInterface;
+import com.instagram.utility.SortByName;
 
 public class InstagramController implements InstagramControllerInterface {
 
@@ -59,6 +63,7 @@ public class InstagramController implements InstagramControllerInterface {
 			System.out.println("Email is "+myprofile.getEmail());
 			System.out.println("Address is "+myprofile.getAddress());
 		}
+		
 	}
 
 	public void editProfileController() {
@@ -77,8 +82,87 @@ public class InstagramController implements InstagramControllerInterface {
 	}
 
 	public void viewAllProfileController() {
-		// TODO Auto-generated method stub
+		InstagramServiceInterface iservice=new InstagramService();
+		List<InstagramUser> ll=iservice.viewAllProfileService();
+		
+		System.out.println(ll.size()+" Record found");
+		
+		System.out.println("iterating list with simple for loop");
+		
+		for(int i=0;i<ll.size();i++) {
+			InstagramUser uu=ll.get(i);
+			System.out.println("****************");
+			System.out.println("Name is "+uu.getName());
+			System.out.println("Password is "+uu.getPassword());
+			System.out.println("Email is "+uu.getEmail());
+			System.out.println("Address is "+uu.getAddress());
+		}
+		
+		System.out.println("iterating list with foreach loop");
+		
+		for(InstagramUser uu:ll) {
+			
+			System.out.println("****************");
+			System.out.println("Name is "+uu.getName());
+			System.out.println("Password is "+uu.getPassword());
+			System.out.println("Email is "+uu.getEmail());
+			System.out.println("Address is "+uu.getAddress());
+		}
+		
+		System.out.println("iterating list with iterator loop");
+		
+		Iterator<InstagramUser> ii=ll.iterator();
+		
+		while(ii.hasNext()) {
+			InstagramUser uu=ii.next();
+			System.out.println("****************");
+			System.out.println("Name is "+uu.getName());
+			System.out.println("Password is "+uu.getPassword());
+			System.out.println("Email is "+uu.getEmail());
+			System.out.println("Address is "+uu.getAddress());
+		}
+		
+		System.out.println("iterating list with lambda loop");
+		
+		ll.forEach(uu->{
+			
+			System.out.println("****************");
+			System.out.println("Name is "+uu.getName());
+			System.out.println("Password is "+uu.getPassword());
+			System.out.println("Email is "+uu.getEmail());
+			System.out.println("Address is "+uu.getAddress());
+		}
+		);
+		
+		System.out.println("list data after sorting");
+		Collections.sort(ll, new SortByName());
+		
+		ll.forEach(uu->{
+			
+			System.out.println("****************");
+			System.out.println("Name is "+uu.getName());
+			System.out.println("Password is "+uu.getPassword());
+			System.out.println("Email is "+uu.getEmail());
+			System.out.println("Address is "+uu.getAddress());
+		}
+		);
 
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
