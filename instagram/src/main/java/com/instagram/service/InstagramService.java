@@ -27,6 +27,13 @@ public class InstagramService implements InstagramServiceInterface {
 		return ll;
 	}
 
+	@Override
+	public int deleteProfileService(InstagramUser iu) {
+		InstagramDAOInterface  id=new InstagramDAO();
+		int i=id.deleteProfileDAO(iu); 
+		return i;
+	}
+
 }
 
 

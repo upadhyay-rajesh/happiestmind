@@ -12,4 +12,6 @@ public interface InstagramServiceInterface {
 
 	List<InstagramUser> viewAllProfileService();
 
+	int deleteProfileService(InstagramUser iu);
+
 }

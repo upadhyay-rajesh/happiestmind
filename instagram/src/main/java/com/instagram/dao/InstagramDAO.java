@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.instagram.entity.InstagramUser;
 import com.instagram.exceptions.EmailNotFoundException;
+import com.instagram.utility.DatabaseConnection;
 
 public class InstagramDAO implements InstagramDAOInterface {
 
@@ -17,11 +18,11 @@ public class InstagramDAO implements InstagramDAOInterface {
 		int i=0;
 		try {
 			//step 1 load driver
-		Class.forName("com.mysql.jdbc.Driver");
+		//Class.forName("com.mysql.jdbc.Driver");
 		
 		//step 2 create database connection
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
-		
+	//	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
+			Connection con=DatabaseConnection.getConnection();
 		//create query
 		PreparedStatement ps=con.prepareStatement("insert into instagramuser values(?,?,?,?)");
 		ps.setString(1, iu.getName());
@@ -44,11 +45,11 @@ public class InstagramDAO implements InstagramDAOInterface {
 		InstagramUser iu1=null;
 		try {
 			//step 1 load driver
-		Class.forName("com.mysql.jdbc.Driver");
+		//Class.forName("com.mysql.jdbc.Driver");
 		
 		//step 2 create database connection
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
-		
+		//Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
+			Connection con=DatabaseConnection.getConnection();
 		//create query
 		PreparedStatement ps=con.prepareStatement("select * from instagramuser where email=?");
 		
@@ -71,7 +72,7 @@ public class InstagramDAO implements InstagramDAOInterface {
 		}
 		
 		}
-		catch(SQLException | ClassNotFoundException | EmailNotFoundException e) {
+		catch(SQLException | ClassNotFoundException | EmailNotFoundException  e) {
 			System.out.println(e);
 		}
 		return iu1;
@@ -82,8 +83,7 @@ public class InstagramDAO implements InstagramDAOInterface {
 		List<InstagramUser> ll=new ArrayList<InstagramUser>();//generic collection
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmind","root","rajesh");
+			Connection con=DatabaseConnection.getConnection();
 			PreparedStatement ps=con.prepareStatement("select * from instagramuser");
 			ResultSet res=ps.executeQuery();
 			
@@ -106,6 +106,23 @@ public class InstagramDAO implements InstagramDAOInterface {
 			e.printStackTrace();
 		}
 		return ll;
+	}
+
+	@Override
+	public int deleteProfileDAO(InstagramUser iu) {
+		int i=0;
+		try {
+		Connection con=DatabaseConnection.getConnection();
+		PreparedStatement ps=con.prepareStatement("delete from instagramuser where email=?");
+		ps.setString(1, iu.getEmail());
+		
+		i=ps.executeUpdate(); //for insert delete and update query
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return i;
 	}
 
 }

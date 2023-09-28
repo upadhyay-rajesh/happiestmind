@@ -12,4 +12,6 @@ public interface InstagramDAOInterface {
 
 	List<InstagramUser> viewAllProfileDAO();
 
+	int deleteProfileDAO(InstagramUser iu);
+
 }

@@ -72,7 +72,24 @@ public class InstagramController implements InstagramControllerInterface {
 	}
 
 	public void deleteProfileController() {
-		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("Enter Email to delete profile");
+		String email=sc.next();
+		
+		InstagramUser iu=new InstagramUser();
+		iu.setEmail(email);
+		
+		InstagramServiceInterface iservice=new InstagramService();
+		
+		int i=iservice.deleteProfileService(iu);
+		
+		if(i>0) {
+			System.out.println("your profile deleted successfully");
+		}
+		else {
+			System.out.println("oops could not delete profile");
+		}
 
 	}
 
@@ -146,6 +163,9 @@ public class InstagramController implements InstagramControllerInterface {
 			System.out.println("Address is "+uu.getAddress());
 		}
 		);
+		System.out.println("printing name with stream");
+		ll.stream().map(m->m.getName()).forEach(System.out::println);
+		ll.stream().filter(p->p.getAddress().equals("Chennai")).map(m->m.getName()).forEach(System.out::println);
 
 	}
 
