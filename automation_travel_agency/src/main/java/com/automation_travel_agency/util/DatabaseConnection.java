@@ -1,0 +1,12 @@
+package com.automation_travel_agency.util;
+
+import java.sql.Connection;
+
+public class DatabaseConnection {
+
+	public static Connection getConnection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
