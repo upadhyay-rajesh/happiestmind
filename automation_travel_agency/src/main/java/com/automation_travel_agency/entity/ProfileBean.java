@@ -6,7 +6,7 @@ public class ProfileBean {
 	String userID;
 	String firstName;
 	String lastName;
-	Date dateOfBirth;
+	String dateOfBirth;
 	String gender;
 	String street;
 	String location;
@@ -34,10 +34,11 @@ public class ProfileBean {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getDateOfBirth() {
+	
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public String getGender() {

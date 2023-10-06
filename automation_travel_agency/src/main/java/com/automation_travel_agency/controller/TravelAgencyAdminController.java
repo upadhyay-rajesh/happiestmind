@@ -169,14 +169,15 @@ public class TravelAgencyAdminController implements TravelAgencyAdminControllerI
 	public void deleteVehicle() {
 		Scanner sc=new Scanner(System.in);
 		TravelAgencyAdminServiceInterface travelagencyadminService =new TravelAgencyAdminService();
-		System.out.println("please enter Driver Id");
-		String driverID=sc.next();
-		int result=travelagencyadminService.deleteDriver(driverID);
+		System.out.println("please enter Vehicle Id");
+		String vehicleID=sc.next();
+		int result=travelagencyadminService.deleteVehicle(vehicleID);
+				
 		if(result>0) {
-			System.out.println("Driver deleted successfully");
+			System.out.println("Vehicle deleted successfully");
 		}
 		else {
-			System.out.println("could not delete driver");
+			System.out.println("could not delete Vehicle");
 		}
 		
 	}
@@ -186,14 +187,14 @@ public class TravelAgencyAdminController implements TravelAgencyAdminControllerI
 	public void deleteRoute() {
 		Scanner sc=new Scanner(System.in);
 		TravelAgencyAdminServiceInterface travelagencyadminService =new TravelAgencyAdminService();
-		System.out.println("please enter Driver Id");
-		String driverID=sc.next();
-		int result=travelagencyadminService.deleteDriver(driverID);
+		System.out.println("please enter Route Id");
+		String routeID=sc.next();
+		int result=travelagencyadminService.deleteRoute(routeID);
 		if(result>0) {
-			System.out.println("Driver deleted successfully");
+			System.out.println("Route deleted successfully");
 		}
 		else {
-			System.out.println("could not delete driver");
+			System.out.println("could not delete Route");
 		}
 		
 	}
@@ -203,16 +204,17 @@ public class TravelAgencyAdminController implements TravelAgencyAdminControllerI
 	public void viewVehicle() {
 		Scanner sc=new Scanner(System.in);
 		TravelAgencyAdminServiceInterface travelagencyadminService =new TravelAgencyAdminService();
-		System.out.println("please enter Driver Id");
-		String driverID=sc.next();
+		System.out.println("please enter Vehicle Id");
+		String vehicleID=sc.next();
 		
-		DriverBean result=travelagencyadminService.viewDriver(driverID);
+		VehicleBean result=travelagencyadminService.viewVehicle(vehicleID);
 		if(result!=null) {
-			System.out.println("Driver details is below");
-			System.out.println("Driver name is "+result.getName());
-			System.out.println("Driver mobile no is "+result.getMobileNo());
-			System.out.println("Driver Licence no is "+result.getLicenseNumber());
-			System.out.println("Driver City is "+result.getCity());
+			System.out.println("Vehicle details is below");
+			System.out.println("Vehicle name is "+result.getName());
+			System.out.println("Vehicle Registration no is "+result.getRegistrationNumber());
+			System.out.println("Vehicle Type is "+result.getType());
+			System.out.println("Vehicle Fare per km is "+result.getFarePerKM());
+			System.out.println("Vehicle Seating capacity is "+result.getSeatingCapacity());
 		}
 		
 	}
@@ -254,12 +256,12 @@ public class TravelAgencyAdminController implements TravelAgencyAdminControllerI
 		vehicleBean.setType(type);
 		vehicleBean.setVehicleID(vehicleID);
 		
-		boolean result1=travelagencyadminService
+		boolean result1=travelagencyadminService.modifyVehicle(vehicleBean);
 		if(result1) {
-			System.out.println("Driver updated successfully");
+			System.out.println("vehicle updated successfully");
 		}
 		else {
-			System.out.println("could not delete driver");
+			System.out.println("could not modify vehicle");
 		}
 		
 	}
@@ -343,7 +345,7 @@ public class TravelAgencyAdminController implements TravelAgencyAdminControllerI
 	public void allDriverDetails() {
 		Scanner sc=new Scanner(System.in);
 		TravelAgencyAdminServiceInterface travelagencyadminService =new TravelAgencyAdminService();
-		ArrayList<DriverBean> allRoute=travelagencyadminService.viewAllDriverDetails()
+		ArrayList<DriverBean> allRoute=travelagencyadminService.viewAllDriverDetails();
 		
 		allRoute.forEach(result->{
 			System.out.println("**************************");
