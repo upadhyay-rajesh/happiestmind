@@ -1,0 +1,69 @@
+create database travelagency;
+use travelagency; 
+
+create table ATA_TBL_User_Credentials (Userid VARCHAR(6) Primary Key,Password VARCHAR(20) Not Null ,
+Usertype VARCHAR(15), 
+Loginstatus int(1));
+
+ create table ATA_TBL_User_Profile (UserId VARCHAR(6)  ,
+Firstname VARCHAR(15) Not Null ,
+Lastname VARCHAR(15) Not Null ,
+Dateofbirth varchar(23) Not Null ,
+Gender VARCHAR(7) Not Null ,
+Street VARCHAR(30) Not Null ,
+Location VARCHAR(15) Not Null ,
+City VARCHAR(15) Not Null ,
+State VARCHAR(15) Not Null ,
+Pincode VARCHAR(6) Not Null ,
+MobileNo VARCHAR(10), 
+EmailId VARCHAR(30),FOREIGN KEY (UserId) REFERENCES ATA_TBL_User_Credentials(UserId) );
+
+ create table ATA_TBL_Vehicle (vehicleId VARCHAR(6) Primary Key ,
+Name VARCHAR(20) Not Null ,
+Type VARCHAR(8) Not Null ,
+RegistrationNumber VARCHAR(12) Not Null ,
+SeatingCapacity int(3) Not Null ,
+FarePerKM int(3) 
+);
+ create table ATA_TBL_Driver (
+
+driverId VARCHAR(6) Primary Key ,
+Name VARCHAR(25) Not Null, 
+Street VARCHAR(30) Not Null ,
+Location VARCHAR(15) Not Null ,
+City VARCHAR(15) Not Null ,
+State VARCHAR(15) Not Null ,
+Pincode VARCHAR(6) Not Null ,
+MobileNo VARCHAR(10) ,
+LicenseNumber VARCHAR(20) Unique );
+create table ATA_TBL_Route (
+
+routeId VARCHAR (8) Primary Key ,
+Source VARCHAR(20) Not Null ,
+Destination VARCHAR (20) Not Null ,
+Distance int(4) Not Null ,
+TravelDuration int(3) Not Null );
+
+ create table ATA_TBL_Reservation( reservationId VARCHAR (6) Primary Key ,
+
+UserId VARCHAR (6) ,
+VehicleId VARCHAR (6),
+RouteId VARCHAR (8)  ,
+BookingDate Date Not Null ,
+JourneyDate Date Not Null ,
+DriverId VARCHAR (6)  ,
+BookingStatus VARCHAR (20) Not Null ,
+TotalFare int(10) Not Null ,
+BoardingPoint VARCHAR(30) Not Null ,
+DropPoint VARCHAR(30) Not Null ,FOREIGN KEY (UserId) REFERENCES ATA_TBL_User_Credentials(UserId),
+FOREIGN KEY (VehicleId) REFERENCES ATA_TBL_Vehicle(VehicleId),
+FOREIGN KEY (RouteId) REFERENCES ATA_TBL_Route(RouteId),
+FOREIGN KEY (DriverId) REFERENCES ATA_TBL_Driver(DriverId));
+
+ create table ATA_TBL_CreditCard (
+
+CreditCardNumber VARCHAR(16) Primary Key ,
+ValidFrom VARCHAR(7) Not Null ,
+ValidTo VARCHAR(7) Not Null ,
+CreditBalance int Not Null ,
+UserId VARCHAR(6),FOREIGN KEY (UserId) REFERENCES ATA_TBL_User_Credentials(UserId))
